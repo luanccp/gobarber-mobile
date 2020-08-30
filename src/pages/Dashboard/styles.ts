@@ -42,7 +42,7 @@ export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
 
 export const ProviderContainer = styled(RectButton)`
   background: #3e3b47;
-  border-radius: 10;
+  border-radius: 10px;
   padding: 20px;
   margin-bottom: 16px;
   flex-direction: row;
