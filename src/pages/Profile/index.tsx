@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import Icon from 'react-native-vector-icons/Feather';
+import ImagePicker from 'react-native-image-picker';
 import { useAuth } from '../../hooks/auth';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -116,6 +117,42 @@ const Profile: React.FC = () => {
     navigation.goBack();
   }, [navigation]);
 
+  const handleUpdateAvatar = useCallback(() => {
+    ImagePicker.showImagePicker(
+      {
+        title: 'Selecione um Avatar',
+        cancelButtonTitle: 'Cancelar',
+        chooseFromLibraryButtonTitle: 'Escolher da galeria',
+        takePhotoButtonTitle: 'Usar câmera',
+      },
+      (response) => {
+        if (response.didCancel) {
+          return;
+        }
+
+        if (response.error) {
+          Alert.alert('Erro ao atualizar seu avatar', response.error);
+          return;
+        }
+
+        const data = new FormData();
+
+        data.append('avatar', {
+          type: 'image/jpeg',
+          name: `${user.id}.jpg`,
+          uri: response.uri,
+        });
+
+        api
+          .patch('users/avatar', data)
+          .then((apiResponse) => {
+            updateUser(apiResponse.data);
+          })
+          .catch((error) => console.log(error.toString()));
+      }
+    );
+  }, [navigation]);
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -127,7 +164,7 @@ const Profile: React.FC = () => {
           <BackButton onPress={handleGoBack}>
             <Icon name="chevron-left" size={24} color="#999591" />
           </BackButton>
-          <UserAvatarButton>
+          <UserAvatarButton onPress={handleUpdateAvatar}>
             <UserAvatar
               source={{
                 uri:

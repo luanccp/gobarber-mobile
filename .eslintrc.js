@@ -1,6 +1,7 @@
 module.exports = {
   env: {
     es6: true,
+    browser: true,
   },
   settings: {
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
