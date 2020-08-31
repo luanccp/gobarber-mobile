@@ -35,7 +35,7 @@ interface ProfileFormData {
   password_confirmation: string;
 }
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
 
   const formRef = useRef<FormHandles>(null);
   const emailInputRef = useRef<TextInput>(null);
@@ -241,6 +241,8 @@ const Profile: React.FC = () => {
             <Button onPress={() => formRef.current?.submitForm()}>
               Confirmar mudança
             </Button>
+
+            <Button onPress={signOut}>Sair</Button>
           </Form>
         </Container>
       </ScrollView>
