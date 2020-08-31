@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
 
   const navigation = useNavigation();
 
-  const handleSignUp = useCallback(
+  const handleUpdateUserData = useCallback(
     async (data: ProfileFormData) => {
       try {
         formRef.current?.setErrors({});
@@ -109,7 +109,7 @@ const Profile: React.FC = () => {
         );
       }
     },
-    [navigation]
+    [navigation, updateUser]
   );
 
   const handleGoBack = useCallback(() => {
@@ -140,7 +140,11 @@ const Profile: React.FC = () => {
           <View>
             <Title>Meu perfil</Title>
           </View>
-          <Form initialData={user} ref={formRef} onSubmit={handleSignUp}>
+          <Form
+            initialData={user}
+            ref={formRef}
+            onSubmit={handleUpdateUserData}
+          >
             <Input
               autoCapitalize="words"
               name="name"
