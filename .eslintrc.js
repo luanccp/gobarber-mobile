@@ -42,7 +42,7 @@ module.exports = {
     'import/no-cycle': 'off',
     'import/prefer-default-export': 'off',
     'no-unused-vars': 'off',
-    camelcase: 'off',
+    'camelcase': 'off',
     'no-use-before-define': ['error', { variables: false }],
     'func-names': ['error', 'never'],
     'import/extensions': [
